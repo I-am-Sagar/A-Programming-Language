@@ -1,0 +1,26 @@
+@foreign
+func printf(fmt: char const*, ...): int;
+func scanf(fmt: char const*, ...): int;
+
+func kadane(array: int[], size: int): int {
+    current_max := array[0];    
+    maximum := array[0]; 
+    // Chained assignment is not supported with colon-assign yet
+    // Hence we can't do, current_max := maximum := array[0];
+
+    for (i := 0; i < size; i++) {
+        current_max = (array[i] < array[i]+current_max) ? (array[i] + current_max) : array[i];
+        maximum     = (maximum < current_max) ? current_max : maximum;
+    }
+    return maximum;
+}
+
+func main(argc: int, argv: char const**): int {
+    // Mentioning size of array is compulsory. 
+    // Support for inbuilt dynamic arrays ie. vectors is in progress
+    arr: int[8] = {-2, -3, 4,  -1, -2, 1, 5, -3};  
+    n := sizeof(arr)/sizeof(arr[0]);
+    max_sum : int = kadane(arr, n); 
+    printf("Maximum sum of subarray is: %d\n", max_sum);
+    return 0;
+}

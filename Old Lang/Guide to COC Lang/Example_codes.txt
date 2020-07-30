@@ -1,0 +1,148 @@
+This is the list of all the codes which were tested using 'sam' compiler
+and were executed successfully.
+
+---------------------------------------------------------------------------------------------------
+
+1. HELLO WORLD example
+
+@foreign
+func printf(fmt: char const*, ...): int;
+
+// Comment: Welcome to COC Lang!
+
+func main(argc: int, argv: char const**): int {
+    printf("Hello World!\n");
+    return 0;
+}
+
+/* I hope - 
+   You enjoyed seeing:
+   Hello World.
+*/
+
+---------------------------------------------------------------------------------------------------
+
+2. BASIC ARITHMETIC example
+   
+   
+
+@foreign
+func printf(fmt: char const*, ...): int;
+
+func main(argc: int, argv: char const**): int {
+    a := 5;     // PYTHON SE CHORI XD
+    b := 6;     
+
+    /* No need of mentioning 'data-type' of variables when used 
+       colon-assign ':=' operator. The variable will determine
+       its type automatically during runtime. */
+    
+    printf ("Addition: %d\nSubtraction: %d\nMultiplication: %d\n", a+b, a-b, a*b);
+    return 0;
+
+}
+
+---------------------------------------------------------------------------------------------------
+
+3. SIMPLE IF-ELSE example
+
+@foreign
+func printf(fmt: char const*, ...): int;
+func scanf(fmt: char const*, ...): int;
+
+func main(argc: int, argv: char const**): int {
+    a: int;
+    printf("Enter the value of a: ");
+    scanf("%d", &a);
+    if (a > 10)
+        printf("The number is greater than 10.\n");
+    else
+        printf ("The number is less than 10.\n");
+
+    return 0;
+
+}
+
+---------------------------------------------------------------------------------------------------
+
+4. FOR loop example to calculate factorial iteratively using FUNC
+
+@foreign
+func printf(fmt: char const*, ...): int;
+func scanf(fmt: char const*, ...): int;
+
+func fact_iter(n: int): int {
+    r := 1;
+    for (i := 1; i <= n; i++) {
+        r *= i;
+    }
+    return r;
+}
+
+func main(argc: int, argv: char const**): int {
+    a: int;
+    printf("Enter the value of a: ");
+    scanf("%d", &a);
+    result := fact_iter(a);
+    printf("Factorial is %d.\n", result);
+    return 0;
+}
+
+---------------------------------------------------------------------------------------------------
+
+5. Calculation factorial RECURSIVELY
+
+@foreign
+func printf(fmt: char const*, ...): int;
+func scanf(fmt: char const*, ...): int;
+
+func fact_rec(n: int): int {
+    if (n == 0) {
+        return 1;
+    } else {
+        return n * fact_rec(n-1);
+    }
+}
+
+func main(argc: int, argv: char const**): int {
+    a: int;
+    printf("Enter the value of a: ");
+    scanf("%d", &a);
+    result := fact_rec(a);
+    printf("Factorial is %d.\n", result);
+    return 0;
+}
+
+---------------------------------------------------------------------------------------------------
+
+6. Final test - KADANE'S ALGORITHM (to demonstrate arrays in COC lang)
+
+@foreign
+func printf(fmt: char const*, ...): int;
+func scanf(fmt: char const*, ...): int;
+
+func kadane(array: int[], size: int): int {
+    current_max := array[0];    
+    maximum := array[0]; 
+    // Chained assignment is not supported with colon-assign yet
+    // Hence we can't do, current_max := maximum := array[0];
+
+    for (i := 0; i < size; i++) {
+        current_max = (array[i] < array[i]+current_max) ? (array[i] + current_max) : array[i];
+        maximum     = (maximum < current_max) ? current_max : maximum;
+    }
+    return maximum;
+
+}
+
+func main(argc: int, argv: char const**): int {
+    // Mentioning size of array is compulsory. 
+    // Support for inbuilt dynamic arrays ie. vectors is in progress
+    arr: int[8] = {-2, -3, 4,  -1, -2, 1, 5, -3};  
+    n := sizeof(arr)/sizeof(arr[0]);
+    max_sum : int = kadane(arr, n); 
+    printf("Maximum sum of subarray is: %d\n", max_sum);
+    return 0;
+}
+
+---------------------------------------------------------------------------------------------------
